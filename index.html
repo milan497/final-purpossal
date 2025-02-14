@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Proposal 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff69b4, #ff1493, #ff69b4);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    button {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+      background: #45a049;
+      transform: scale(1.1);
+    }
+
+    .no-button {
+      background: #ff4444;
+    }
+
+    .no-button:hover {
+      background: #cc0000;
+    }
+
+    .heart {
+      font-size: 5rem;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .final-message {
+      font-size: 2rem;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Proposal Screen -->
+    <div id="proposal" class="screen">
+      <h1>Will you be my Valentine? 💕</h1>
+      <div class="heart">💖</div>
+      <div>
+        <button id="yes-button">Yes 💖</button>
+        <button id="no-button" class="no-button">No 😢</button>
+      </div>
+      <button id="music-button">🎵 Play Romantic Music</button>
+    </div>
+
+    <!-- Anniversary Screen -->
+    <div id="anniversary" class="screen hidden">
+      <h1>Yay! You said YES! 🎉</h1>
+      <p>Now, what's our anniversary date? (DD MMMM YYYY)</p>
+      <input type="text" id="anniversary-input" placeholder="e.g., 13 August 2020">
+      <button id="submit-button">Submit</button>
+    </div>
+
+    <!-- Final Message Screen -->
+    <div id="final-message" class="screen hidden">
+      <h1>I am going to marry you by 2029! 💍</h1>
+      <p class="final-message">Happy Valentine's Day, my love! 💖</p>
+      <div class="heart">💖</div>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const proposalScreen = document.getElementById('proposal');
+    const anniversaryScreen = document.getElementById('anniversary');
+    const finalMessageScreen = document.getElementById('final-message');
+    const yesButton = document.getElementById('yes-button');
+    const noButton = document.getElementById('no-button');
+    const musicButton = document.getElementById('music-button');
+    const submitButton = document.getElementById('submit-button');
+    const anniversaryInput = document.getElementById('anniversary-input');
+
+    // State
+    let noClickCount = 0;
+    const pleas = [
+      "Please say yes! 🥺💔",
+      "I’ll give you infinite cuddles! 🤗",
+      "I’ll write you love poems! 💌",
+      "I’ll be your forever warm hug! 🤗",
+      "I promise to make you smile every day! 😊",
+    ];
+
+    // Event Listeners
+    yesButton.addEventListener('click', () => {
+      proposalScreen.classList.add('hidden');
+      anniversaryScreen.classList.remove('hidden');
+    });
+
+    noButton.addEventListener('click', () => {
+      if (noClickCount >= 5) {
+        proposalScreen.classList.add('hidden');
+        anniversaryScreen.classList.remove('hidden');
+        return;
+      }
+      alert(pleas[noClickCount]);
+      noClickCount++;
+      noButton.style.transform = `scale(${1 - noClickCount * 0.1})`;
+    });
+
+    submitButton.addEventListener('click', () => {
+      if (anniversaryInput.value === "13 August 2020") {
+        anniversaryScreen.classList.add('hidden');
+        finalMessageScreen.classList.remove('hidden');
+      } else {
+        alert("Wrong answer! Try again, my love! 💖");
+      }
+    });
+
+    musicButton.addEventListener('click', () => {
+      const audio = new Audio('https://assets.mixkit.co/music/preview/mixkit-romantic-touch-875.mp3');
+      audio.loop = true;
+      audio.play().catch(() => alert("Click 'Play Music' again to start the music!"));
+    });
+  </script>
+</body>
+</html>
